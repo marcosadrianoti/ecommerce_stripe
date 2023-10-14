@@ -25,10 +25,25 @@ function ready() {
     const button = removeCartButtons[index];
     button.addEventListener('click', removeCartItem);
   }
+  // Quantity Change
+  const quantityInputs = document.getElementsByClassName('cart-quantity');
+  for (let index = 0; index < quantityInputs.length; index++) {
+    const input = quantityInputs[index];
+    input.addEventListener('change', quantityChanged);
+  }
 }
 
 // Remove Cart Item
 function removeCartItem(event) {
   const buttonClicked = event.target;
+  // Remove o contêiner pai do botão, que representa a remoção do item correspondente.
   buttonClicked.parentElement.remove();
+}
+
+// Quantity Change
+function quantityChanged(event) {
+  const input = event.target;
+  if (isNaN(input.value) || input.value <= 0) {
+    input.value = 1;
+  }
 }
