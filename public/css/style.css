@@ -66,11 +66,11 @@ header {
   font-size: 1.8rem;
   cursor: pointer;
 }
-#cart-icon[data-quantity]::after{
+#cart-icon[data-quantity='0']::after{
   contain: '';
 }
 #cart-icon[data-quantity]::after{
-  content: '';
+  content: attr(data-quantity);
   position: absolute;
   top: 0;
   right: -12px;
@@ -294,6 +294,9 @@ header {
     margin: 0 auto;
     width: 90%;
   }
+  .sc-container h1 {
+    font-size: 1.5rem;
+  }
   .shop {
     margin-top: 2rem !important;
   }
@@ -307,6 +310,13 @@ header {
   }
   .cart {
     width: 320px;
+  }
+  .sc-container h1 {
+    font-size: 1.1rem;
+  }
+  .sc-container p {
+    width: 90%;
+    font-size: 0.9rem;
   }
 }
 @media (max-width: 360px){

@@ -9,6 +9,7 @@ cartIcon.onclick = () => {
 // Close Cart
 closeCart.onclick = () => {
   cart.classList.remove('cart-active')
+  updateCartIcon();
 }
 
 // Add to Cart
@@ -47,6 +48,7 @@ function removeCartItem(event) {
   buttonClicked.parentElement.remove();
   updateTotal();
   saveCartItems();
+  updateCartIcon();
 }
 
 // Quantity Change
@@ -56,7 +58,8 @@ function quantityChanged(event) {
     input.value = 1;
   }
   updateTotal();
-  saveCartItems()
+  saveCartItems();
+  updateCartIcon();
 }
 
 // Add Cart function
@@ -68,7 +71,8 @@ function addCartClicked(event) {
   const productImg = shopProducts.getElementsByClassName('product-img')[0].src;
   addProductToCart(title, price, productImg);
   updateTotal();
-  saveCartItems()
+  saveCartItems();
+  updateCartIcon();
 }
 
 function addProductToCart(title, price, productImg) {
@@ -99,6 +103,7 @@ function addProductToCart(title, price, productImg) {
     .getElementsByClassName('cart-quantity')[0]
     .addEventListener('change', quantityChanged);
     saveCartItems();
+    updateCartIcon();
 }
 
 // Update Total
@@ -162,6 +167,28 @@ function loadCartItems () {
   const cartTotal = localStorage.getItem('cartTotal');
   if (cartTotal) {
     document.getElementsByClassName('total-price')[0].innerText = '$' + cartTotal;
-
   }
+  updateCartIcon();
+}
+
+// Quantity in Cart Icon
+function updateCartIcon () {
+  const cartBoxes = document.getElementsByClassName('cart-box');
+  let quantity = 0;
+
+  for (let index = 0; index < cartBoxes.length; index++) {
+    const cartBox = cartBoxes[index];
+    const quantityElement = cartBox.getElementsByClassName('cart-quantity')[0];
+    quantity += parseInt(quantityElement.value);
+  }
+  const cartIcon = document.querySelector('#cart-icon');
+  cartIcon.setAttribute('data-quantity', quantity);
+}
+
+// Clear Cart Item after successful payment
+function clearCart () {
+  const cartContent = document.getElementsByClassName('cart-content')[0];
+  cartContent.innerHTML = '';
+  updateTotal();
+  localStorage.removeItem('cartItems');
 }
