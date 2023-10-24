@@ -20,7 +20,8 @@ if (document.readyState == 'loading') {
   ready();
 }
 
-function ready() {
+// function ready() {
+const ready = () => {
   const removeCartButtons = document.getElementsByClassName('cart-remove');
   for (let index = 0; index < removeCartButtons.length; index++) {
     const button = removeCartButtons[index];
@@ -42,7 +43,8 @@ function ready() {
 }
 
 // Remove Cart Item
-function removeCartItem(event) {
+// function removeCartItem(event) {
+const removeCartItem = (event) => {
   const buttonClicked = event.target;
   // Remove o contêiner pai do botão, que representa a remoção do item correspondente.
   buttonClicked.parentElement.remove();
@@ -52,7 +54,8 @@ function removeCartItem(event) {
 }
 
 // Quantity Change
-function quantityChanged(event) {
+// function quantityChanged(event) {
+const quantityChanged = (event) => {
   const input = event.target;
   if (isNaN(input.value) || input.value <= 0) {
     input.value = 1;
@@ -63,7 +66,8 @@ function quantityChanged(event) {
 }
 
 // Add Cart function
-function addCartClicked(event) {
+// function addCartClicked(event) {
+const addCartClicked = (event) => {
   const button = event.target;
   const shopProducts = button.parentElement;
   const title = shopProducts.getElementsByClassName('product-title')[0].innerText;
@@ -75,7 +79,8 @@ function addCartClicked(event) {
   updateCartIcon();
 }
 
-function addProductToCart(title, price, productImg) {
+// function addProductToCart(title, price, productImg) {
+const addProductToCart = (title, price, productImg) => {
   const cartShopBox = document.createElement('div');
   cartShopBox.classList.add('cart-box');
   const cartItems = document.getElementsByClassName('cart-content')[0];
@@ -107,7 +112,8 @@ function addProductToCart(title, price, productImg) {
 }
 
 // Update Total
-function updateTotal() {
+// function updateTotal() {
+const updateTotal = () => {
   const cartContent = document.getElementsByClassName('cart-content')[0];
   const cartBoxes = cartContent.getElementsByClassName('cart-box');
   let total = 0;
@@ -125,7 +131,8 @@ function updateTotal() {
 }
 
 //Keep Item in cart when page refresh with localstorage
-function saveCartItems() {
+// function saveCartItems() {
+const saveCartItems = () => {
   const cartContent = document.getElementsByClassName('cart-content')[0];
   const cartBoxes = cartContent.getElementsByClassName('cart-box');
   const cartItems = [];
@@ -149,7 +156,8 @@ function saveCartItems() {
 }
 
 //Loads in Cart from localstorage
-function loadCartItems () {
+// function loadCartItems () {
+const loadCartItems = () => {
   let cartItems = localStorage.getItem('cartItems');
   if (cartItems) {
     cartItems = JSON.parse(cartItems);
@@ -172,7 +180,8 @@ function loadCartItems () {
 }
 
 // Quantity in Cart Icon
-function updateCartIcon () {
+// function updateCartIcon () {
+const updateCartIcon = () => {
   const cartBoxes = document.getElementsByClassName('cart-box');
   let quantity = 0;
 
@@ -186,7 +195,8 @@ function updateCartIcon () {
 }
 
 // Clear Cart Item after successful payment
-function clearCart () {
+// function clearCart () {
+const clearCart = () => {
   const cartContent = document.getElementsByClassName('cart-content')[0];
   cartContent.innerHTML = '';
   updateTotal();

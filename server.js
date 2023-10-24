@@ -31,8 +31,6 @@ let DOMAIN = process.env.DOMAIN;
 app.post('/stripe-checkout', async (req, res) => {
   const lineItems = req.body.items.map((item) => {
     const unitAmount = parseInt(item.price.replace(/[^0-9.-]+/g, '') * 100);
-    console.log('item-price', item.price);
-    console.log('unitAmount', unitAmount);
     return {
       price_data: {
         currency: 'usd',
@@ -45,7 +43,6 @@ app.post('/stripe-checkout', async (req, res) => {
       quantity: item.quantity,
     };
   });
-  console.log('lineItems:', lineItems);
 
 // Create Checkout Session
   const session = await stripeGateway.checkout.sessions.create({
