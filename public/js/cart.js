@@ -1,3 +1,5 @@
+import { clearCart } from '../js/utils.js';
+
 const payBtn = document.querySelector('.btn-buy');
 
 payBtn.addEventListener('click', () => {
