@@ -1,19 +1,17 @@
+// when everything is loaded
 const ready = () => {
   const removeCartButtons = document.getElementsByClassName('cart-remove');
-  for (let index = 0; index < removeCartButtons.length; index++) {
-    const button = removeCartButtons[index];
-    button.addEventListener('click', removeCartItem);
+  for (const button of removeCartButtons) {
+    button.addEventListener('click', removeCartItem)
   }
   // Quantity Change
   const quantityInputs = document.getElementsByClassName('cart-quantity');
-  for (let index = 0; index < quantityInputs.length; index++) {
-    const input = quantityInputs[index];
+  for (const input of quantityInputs) {
     input.addEventListener('change', quantityChanged);
   }
   // Add to cart
   const addCart = document.getElementsByClassName('add-cart');
-  for (let index = 0; index < addCart.length; index++) {
-    const button = addCart[index];
+  for (const button of addCart) {
     button.addEventListener('click', addCartClicked);
   }
   loadCartItems();
@@ -59,8 +57,8 @@ const addProductToCart = (title, price, productImg) => {
   cartShopBox.classList.add('cart-box');
   const cartItems = document.getElementsByClassName('cart-content')[0];
   const cartItemsNames = cartItems.getElementsByClassName('cart-product-title');
-  for (let index = 0; index < cartItemsNames.length; index++) {
-    if (cartItemsNames[index].innerText == title) {
+  for (const cartItemsName of cartItemsNames) {
+    if (cartItemsName.innerText == title) {
       alert('You have already added this item to cart');
       return;
     }
@@ -90,8 +88,7 @@ const updateTotal = () => {
   const cartContent = document.getElementsByClassName('cart-content')[0];
   const cartBoxes = cartContent.getElementsByClassName('cart-box');
   let total = 0;
-  for (let index = 0; index < cartBoxes.length; index++) {
-    const cartBox = cartBoxes[index];
+  for (const cartBox of cartBoxes) {
     const priceElement = cartBox.getElementsByClassName('cart-price')[0];
     const quantityElement = cartBox.getElementsByClassName('cart-quantity')[0];
     const price = parseFloat(priceElement.innerText.replace('$', ''));
@@ -108,9 +105,7 @@ const saveCartItems = () => {
   const cartContent = document.getElementsByClassName('cart-content')[0];
   const cartBoxes = cartContent.getElementsByClassName('cart-box');
   const cartItems = [];
-
-  for (let index = 0; index < cartBoxes.length; index++) {
-    const cartBox = cartBoxes[index];
+  for (const cartBox of cartBoxes) {
     const titleElement = cartBox.getElementsByClassName('cart-product-title')[0];
     const priceElement = cartBox.getElementsByClassName('cart-price')[0];
     const quantityElement = cartBox.getElementsByClassName('cart-quantity')[0];
@@ -132,9 +127,7 @@ const loadCartItems = () => {
   let cartItems = localStorage.getItem('cartItems');
   if (cartItems) {
     cartItems = JSON.parse(cartItems);
-
-    for (let index = 0; index < cartItems.length; index++) {
-      const item = cartItems[index];
+    for (const item of cartItems) {
       addProductToCart(item.title, item.price, item.productImg);
 
       const cartBoxes = document.getElementsByClassName('cart-box');
@@ -154,9 +147,7 @@ const loadCartItems = () => {
 const updateCartIcon = () => {
   const cartBoxes = document.getElementsByClassName('cart-box');
   let quantity = 0;
-
-  for (let index = 0; index < cartBoxes.length; index++) {
-    const cartBox = cartBoxes[index];
+  for (const cartBox of cartBoxes) {
     const quantityElement = cartBox.getElementsByClassName('cart-quantity')[0];
     quantity += parseInt(quantityElement.value);
   }
