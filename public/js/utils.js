@@ -18,7 +18,7 @@ const ready = () => {
   }
   loadCartItems();
 }
-  
+
 // Remove Cart Item
 const removeCartItem = (event) => {
   const buttonClicked = event.target;
@@ -28,7 +28,7 @@ const removeCartItem = (event) => {
   saveCartItems();
   updateCartIcon();
 }
-  
+
 // Quantity Change
 const quantityChanged = (event) => {
   const input = event.target;
@@ -39,7 +39,7 @@ const quantityChanged = (event) => {
   saveCartItems();
   updateCartIcon();
 }
-  
+
 // Add Cart function
 const addCartClicked = (event) => {
   const button = event.target;
@@ -81,10 +81,10 @@ const addProductToCart = (title, price, productImg) => {
   cartShopBox
     .getElementsByClassName('cart-quantity')[0]
     .addEventListener('change', quantityChanged);
-    saveCartItems();
-    updateCartIcon();
+  saveCartItems();
+  updateCartIcon();
 }
-  
+
 // Update Total
 const updateTotal = () => {
   const cartContent = document.getElementsByClassName('cart-content')[0];
@@ -102,7 +102,7 @@ const updateTotal = () => {
   // Save Total to LocalStorage
   localStorage.setItem('cartTotal', total);
 }
-  
+
 //Keep Item in cart when page refresh with localstorage
 const saveCartItems = () => {
   const cartContent = document.getElementsByClassName('cart-content')[0];
@@ -126,7 +126,7 @@ const saveCartItems = () => {
   }
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
-  
+
 //Loads in Cart from localstorage
 const loadCartItems = () => {
   let cartItems = localStorage.getItem('cartItems');
@@ -149,7 +149,7 @@ const loadCartItems = () => {
   }
   updateCartIcon();
 }
-  
+
 // Quantity in Cart Icon
 const updateCartIcon = () => {
   const cartBoxes = document.getElementsByClassName('cart-box');
@@ -163,7 +163,7 @@ const updateCartIcon = () => {
   const cartIcon = document.querySelector('#cart-icon');
   cartIcon.setAttribute('data-quantity', quantity);
 }
-  
+
 // Clear Cart Item after successful payment
 const clearCart = () => {
   const cartContent = document.getElementsByClassName('cart-content')[0];
@@ -171,16 +171,9 @@ const clearCart = () => {
   updateTotal();
   localStorage.removeItem('cartItems');
 }
-  
+
 export {
   ready,
-  removeCartItem,
-  quantityChanged,
-  addCartClicked,
-  addProductToCart,
-  updateTotal,
-  saveCartItems,
-  loadCartItems,
   updateCartIcon,
   clearCart
 };
