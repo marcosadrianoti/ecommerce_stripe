@@ -42,9 +42,9 @@ const quantityChanged = (event) => {
 const addCartClicked = (event) => {
   const button = event.target;
   const shopProducts = button.parentElement;
-  const title = shopProducts.getElementsByClassName('product-title')[0].innerText;
-  const price = shopProducts.getElementsByClassName('price')[0].innerText;
-  const productImg = shopProducts.getElementsByClassName('product-img')[0].src;
+  const title = shopProducts.querySelector('.product-title').innerText;
+  const price = shopProducts.querySelector('.price').innerText;
+  const productImg = shopProducts.querySelector('.product-img').src;
   addProductToCart(title, price, productImg);
   updateTotal();
   saveCartItems();
@@ -55,7 +55,7 @@ const addCartClicked = (event) => {
 const addProductToCart = (title, price, productImg) => {
   const cartShopBox = document.createElement('div');
   cartShopBox.classList.add('cart-box');
-  const cartItems = document.getElementsByClassName('cart-content')[0];
+  const cartItems = document.querySelector('.cart-content');
   const cartItemsNames = cartItems.getElementsByClassName('cart-product-title');
   for (const cartItemsName of cartItemsNames) {
     if (cartItemsName.innerText == title) {
@@ -74,10 +74,10 @@ const addProductToCart = (title, price, productImg) => {
   cartShopBox.innerHTML = cartBoxContent;
   cartItems.append(cartShopBox);
   cartShopBox
-    .getElementsByClassName('cart-remove')[0]
+    .querySelector('.cart-remove')
     .addEventListener('click', removeCartItem);
   cartShopBox
-    .getElementsByClassName('cart-quantity')[0]
+    .querySelector('.cart-quantity')
     .addEventListener('change', quantityChanged);
   saveCartItems();
   updateCartIcon();
@@ -85,31 +85,31 @@ const addProductToCart = (title, price, productImg) => {
 
 // Update Total
 const updateTotal = () => {
-  const cartContent = document.getElementsByClassName('cart-content')[0];
+  const cartContent = document.querySelector('.cart-content');
   const cartBoxes = cartContent.getElementsByClassName('cart-box');
   let total = 0;
   for (const cartBox of cartBoxes) {
-    const priceElement = cartBox.getElementsByClassName('cart-price')[0];
-    const quantityElement = cartBox.getElementsByClassName('cart-quantity')[0];
+    const priceElement = cartBox.querySelector('.cart-price');
+    const quantityElement = cartBox.querySelector('.cart-quantity');
     const price = parseFloat(priceElement.innerText.replace('$', ''));
     const quantity = quantityElement.value;
     total += price * quantity;
   }
-  document.getElementsByClassName('total-price')[0].innerText = '$' + total.toFixed(2);
+  document.querySelector('.total-price').innerText = '$' + total.toFixed(2);
   // Save Total to LocalStorage
   localStorage.setItem('cartTotal', total);
 }
 
 //Keep Item in cart when page refresh with localstorage
 const saveCartItems = () => {
-  const cartContent = document.getElementsByClassName('cart-content')[0];
+  const cartContent = document.querySelector('.cart-content');
   const cartBoxes = cartContent.getElementsByClassName('cart-box');
   const cartItems = [];
   for (const cartBox of cartBoxes) {
-    const titleElement = cartBox.getElementsByClassName('cart-product-title')[0];
-    const priceElement = cartBox.getElementsByClassName('cart-price')[0];
-    const quantityElement = cartBox.getElementsByClassName('cart-quantity')[0];
-    const productImg = cartBox.getElementsByClassName('cart-img')[0];
+    const titleElement = cartBox.querySelector('.cart-product-title');
+    const priceElement = cartBox.querySelector('.cart-price');
+    const quantityElement = cartBox.querySelector('.cart-quantity');
+    const productImg = cartBox.querySelector('.cart-img');
 
     const item = {
       title: titleElement.innerText,
@@ -132,13 +132,13 @@ const loadCartItems = () => {
 
       const cartBoxes = document.getElementsByClassName('cart-box');
       const cartBox = cartBoxes[cartBoxes.length - 1];
-      const quantityElement = cartBox.getElementsByClassName('cart-quantity')[0];
+      const quantityElement = cartBox.querySelector('.cart-quantity');
       quantityElement.value = item.quantity;
     }
   }
   const cartTotal = localStorage.getItem('cartTotal');
   if (cartTotal) {
-    document.getElementsByClassName('total-price')[0].innerText = '$' + cartTotal;
+    document.querySelector('.total-price').innerText = '$' + cartTotal;
   }
   updateCartIcon();
 }
@@ -148,7 +148,7 @@ const updateCartIcon = () => {
   const cartBoxes = document.getElementsByClassName('cart-box');
   let quantity = 0;
   for (const cartBox of cartBoxes) {
-    const quantityElement = cartBox.getElementsByClassName('cart-quantity')[0];
+    const quantityElement = cartBox.querySelector('.cart-quantity');
     quantity += parseInt(quantityElement.value);
   }
   const cartIcon = document.querySelector('#cart-icon');
@@ -157,7 +157,7 @@ const updateCartIcon = () => {
 
 // Clear Cart Item after successful payment
 const clearCart = () => {
-  const cartContent = document.getElementsByClassName('cart-content')[0];
+  const cartContent = document.querySelector('.cart-content');
   cartContent.innerHTML = '';
   updateTotal();
   localStorage.removeItem('cartItems');
